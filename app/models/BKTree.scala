@@ -14,7 +14,7 @@ case class BKTreeNode[T](v:T,c: Map[Int,BKTreeNode[T]] = Map.empty[Int,BKTreeNod
     val d = Distance(v.toString,cv.toString)
     val min = math.abs(d - n)
     val max = d + n
-    println("v=%s,min=%s,max=%s".format(v,min,max))
+    //println("v=%s,min=%s,max=%s".format(v,min,max))
     val result = (min to max) flatMap { c.get(_) match {
 	  case Some(x @ BKTreeNode(_v,_)) => {
 	      val d = Distance(cv.toString,_v.toString)
