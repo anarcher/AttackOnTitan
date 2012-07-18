@@ -52,9 +52,11 @@ class Movies {
       case Some(m) => m
       case _ => Nil
     }).map(_.distinct)
-   
-    val movies = moviesList.foldLeft(List[Movie]()) { (xs,x) => xs.union(x) }
-    movies
+
+//    val movies = moviesList.foldLeft(List[Movie]()) { (xs,x) => xs.union(x) }
+    moviesList
+//    val movies = moviesList.foldLeft(moviesList.head) { (xs,x) => xs.intersect(x) }
+//    movies
   }
 }
 
@@ -65,9 +67,7 @@ object Movies {
     import java.io.{BufferedReader,FileReader}
     import com.codahale.jerkson.Json.stream
     val reader = new BufferedReader(new FileReader(fileName))
-    for(m <- stream[Movie](reader)) {
-       movies.add(m)
-    }
+    for(m <- stream[Movie](reader))   movies.add(m)
     movies.buildTree()
     movies
   }

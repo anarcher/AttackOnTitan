@@ -18,10 +18,10 @@ object Distance {
 	  d(i)(j) = if(s(i-1) == t(j-1)) { d(i-1)(j-1) } else {
 	   minimum(d(i-1)(j)+1,d(i)(j-1)+1,d(i-1)(j-1)+1)
           }
-	  println("i=%s,j=%s,d=%s".format(i,j,d(i)(j)))
+	  //println("i=%s,j=%s,d=%s".format(i,j,d(i)(j)))
       }
     }
-    println("m=%s,n=%s,d=%s".format(m,n,d(m)(n)))
+    //println("m=%s,n=%s,d=%s".format(m,n,d(m)(n)))
     d(m)(n)
   }
 
