@@ -44,19 +44,16 @@ class Movies {
   def searchTree(w:String,n:Int=1) = {
     tree ? (w,n)
   }
-  def search(query:String,n:Int=1) = {
+  def search(query:String) = {
+    def n(word:String,percent:Int=25) = { (word.size.toFloat / 100 * 25).toInt }
     val qw = query.toLowerCase.split(" ")
-    val words = qw.flatMap(searchTree(_,n) :: Nil).toList
-//    println("words=%s".format(words))
-    val moviesList = (for(wl <- words ; w <- wl) yield wordMap.get(w._2) match {
-      case Some(m) => m
-      case _ => Nil
-    }).map(_.distinct)
-
-//    val movies = moviesList.foldLeft(List[Movie]()) { (xs,x) => xs.union(x) }
-    moviesList
-//    val movies = moviesList.foldLeft(moviesList.head) { (xs,x) => xs.intersect(x) }
-//    movies
+    val words = qw.map(x => searchTree(x,n(x)))
+//    val movies = words.map( xs => xs.flatMap { x => wordMap.get(x._2).get.map((x._1,_))}.distinct)
+    val movies = words.map( xs => xs.flatMap { x => wordMap.get(x._2).get }.distinct )
+//    println(movies(0).filter( _.Title == "The Dark Knight"))
+//    println(movies(1).filter( _.Title == "The Dark Knight"))
+    val _movies = movies.tail.foldLeft(movies.head) { (xs,x) => xs.intersect(x) }
+    _movies
   }
 }
 
